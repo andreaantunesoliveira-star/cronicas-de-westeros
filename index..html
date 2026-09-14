@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Crônicas de Westeros: uma página de estudo sobre casas, lemas e histórias de fantasia medieval."
+  >
+
+  <title>Crônicas de Westeros</title>
+
+  <style>
+    /* =========================
+       VARIÁVEIS DO TEMA ESCURO
+    ========================= */
+
+    :root {
+      --fundo: #101114;
+      --superficie: #17191e;
+      --card: #1b1d22;
+      --borda: #403c35;
+      --borda-forte: #756b58;
+      --texto: #e7dfcf;
+      --texto-suave: #b8ae9b;
+      --texto-claro: #eee1c3;
+      --dourado: #d6b36a;
+      --dourado-claro: #f0d391;
+      --sombra: rgba(0, 0, 0, 0.3);
+      --fundo-modal: #1b1d22;
+      --sucesso: #7fa66d;
+      --erro: #b05b52;
+    }
+
+    /* =========================
+       VARIÁVEIS DO TEMA CLARO
+    ========================= */
+
+    [data-tema="claro"] {
+      --fundo: #eee7d8;
+      --superficie: #f8f3e9;
+      --card: #fffaf0;
+      --borda: #c8bda8;
+      --borda-forte: #97886d;
+      --texto: #292721;
+      --texto-suave: #625b4f;
+      --texto-claro: #201d18;
+      --dourado: #8b641e;
+      --dourado-claro: #b17c20;
+      --sombra: rgba(50, 40, 20, 0.18);
+      --fundo-modal: #fffaf0;
+      --sucesso: #47743c;
+      --erro: #a74339;
+    }
+
+    /* =========================
+       CONFIGURAÇÃO GERAL
+    ========================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background-color: var(--fundo);
+      color: var(--texto);
+      line-height: 1.6;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* =========================
+       CABEÇALHO
+    ========================= */
+
+    header {
+      padding: 28px 18px;
+      background-color: var(--superficie);
+      border-bottom: 1px solid var(--borda-forte);
+      text-align: center;
+      transition:
+        background-color 0.3s,
+        border-color 0.3s;
+    }
+
+    header h1 {
+      color: var(--dourado);
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: var(--texto-suave);
+      font-size: 0.95rem;
+    }
+
+    /* =========================
+       NAVEGAÇÃO
+    ========================= */
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 4px;
+      color: var(--dourado);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background-color: var(--dourado);
+      color: var(--superficie);
+    }
+
+    /* =========================
+       FOCO ACESSÍVEL
+    ========================= */
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--dourado);
+      outline-offset: 3px;
+    }
+
+    /* =========================
+       BOTÃO DE TEMA
+    ========================= */
+
+    .botao-tema {
+      margin-top: 18px;
+      padding: 8px 14px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 4px;
+      background-color: transparent;
+      color: var(--dourado);
+      cursor: pointer;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
+    }
+
+    .botao-tema:hover {
+      background-color: var(--dourado);
+      color: var(--superficie);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    #inicio {
+      min-height: 470px;
+      padding: 90px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        linear-gradient(
+          rgba(10, 11, 14, 0.78),
+          rgba(10, 11, 14, 0.88)
+        ),
+        url(
+          "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80"
+        );
+      background-size: cover;
+      background-position: center;
+    }
+
+    [data-tema="claro"] #inicio {
+      background:
+        linear-gradient(
+          rgba(248, 243, 233, 0.72),
+          rgba(248, 243, 233, 0.84)
+        ),
+        url(
+          "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80"
+        );
+      background-size: cover;
+      background-position: center;
+    }
+
+    #inicio h2 {
+      max-width: 700px;
+      color: var(--texto-claro);
+      font-size: 2.3rem;
+      line-height: 1.2;
+    }
+
+    #inicio p {
+      max-width: 560px;
+      margin-top: 18px;
+      color: var(--texto-suave);
+      font-size: 1.1rem;
+    }
+
+    .botao-principal {
+      margin-top: 26px;
+      padding: 13px 22px;
+      border: 1px solid var(--dourado);
+      border-radius: 4px;
+      background-color: var(--dourado);
+      color: var(--superficie);
+      font-weight: bold;
+      cursor: pointer;
+      transition:
+        background-color 0.3s,
+        transform 0.3s;
+    }
+
+    .botao-principal:hover {
+      background-color: var(--dourado-claro);
+      transform: translateY(-3px);
+    }
+
+    /* =========================
+       CONTEÚDO
+    ========================= */
+
+    main {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 16px;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    section h2 {
+      margin-bottom: 12px;
+      color: var(--dourado);
+      font-size: 1.8rem;
+    }
+
+    section > p {
+      color: var(--texto-suave);
+    }
+
+    /* =========================
+       REVELAÇÃO AO ROLAR
+    ========================= */
+
+    .revelar {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+    }
+
+    .revelar.apareceu {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .casa-card:nth-child(2) {
+      transition-delay: 0.08s;
+    }
+
+    .casa-card:nth-child(3) {
+      transition-delay: 0.16s;
+    }
+
+    .casa-card:nth-child(4) {
+      transition-delay: 0.24s;
+    }
+
+    .casa-card:nth-child(5) {
+      transition-delay: 0.32s;
+    }
+
+    .casa-card:nth-child(6) {
+      transition-delay: 0.40s;
+    }
+
+    .casa-card:nth-child(7) {
+      transition-delay: 0.48s;
+    }
+
+    .casa-card:nth-child(8) {
+      transition-delay: 0.56s;
+    }
+
+    .casa-card:nth-child(9) {
+      transition-delay: 0.64s;
+    }
+
+    /* =========================
+       PESQUISA
+    ========================= */
+
+    .campo-busca {
+      margin-top: 24px;
+      margin-bottom: 18px;
+    }
+
+    .campo-busca label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dourado);
+      font-size: 0.95rem;
+    }
+
+    .campo-busca input {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 4px;
+      outline: none;
+      background-color: var(--superficie);
+      color: var(--texto);
+      font-size: 1rem;
+    }
+
+    .campo-busca input::placeholder {
+      color: var(--texto-suave);
+    }
+
+    .campo-busca input:focus {
+      border-color: var(--dourado);
+      box-shadow:
+        0 0 0 2px rgba(139, 100, 30, 0.18);
+    }
+        /* =========================
+       FILTROS
+    ========================= */
+
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .botao-filtro {
+      padding: 9px 15px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 4px;
+      background-color: transparent;
+      color: var(--texto-suave);
+      cursor: pointer;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
+    }
+
+    .botao-filtro:hover,
+    .botao-filtro.ativo {
+      background-color: var(--dourado);
+      color: var(--superficie);
+    }
+
+    /* =========================
+       GRADE DAS CASAS
+    ========================= */
+
+    .casas-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(240px, 1fr)
+      );
+      gap: 20px;
+    }
+
+    .casa-card {
+      padding: 22px;
+      background-color: var(--card);
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      box-shadow:
+        0 5px 16px var(--sombra);
+      transition:
+        transform 0.3s,
+        border-color 0.3s,
+        background-color 0.3s,
+        opacity 0.7s ease;
+    }
+
+    .casa-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--dourado);
+    }
+
+    .casa-card.oculta {
+      display: none;
+    }
+
+    .simbolo-casa {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 2.6rem;
+    }
+
+    .casa-card h3 {
+      margin-bottom: 6px;
+      color: var(--texto-claro);
+      font-size: 1.35rem;
+    }
+
+    .regiao {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 3px 8px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 20px;
+      color: var(--dourado);
+      font-size: 0.75rem;
+    }
+
+    .lema {
+      margin-bottom: 12px;
+      color: var(--dourado);
+      font-style: italic;
+    }
+
+    .casa-card p {
+      color: var(--texto-suave);
+      font-size: 0.95rem;
+    }
+
+    /* =========================
+       BOTÕES DOS CARDS
+    ========================= */
+
+    .botao-detalhes {
+      width: 100%;
+      margin-top: 18px;
+      padding: 10px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 4px;
+      background-color: transparent;
+      color: var(--dourado);
+      cursor: pointer;
+      transition:
+        background-color 0.3s,
+        color 0.3s;
+    }
+
+    .botao-detalhes:hover {
+      background-color: var(--dourado);
+      color: var(--superficie);
+    }
+
+    /* =========================
+       FAQ
+    ========================= */
+
+    #faq {
+      padding: 28px 20px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      background-color: var(--superficie);
+    }
+
+    .faq-lista {
+      max-width: 800px;
+      margin-top: 24px;
+    }
+
+    .faq-item {
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1px solid var(--borda-forte);
+      border-radius: 5px;
+      background-color: var(--card);
+      transition:
+        border-color 0.3s,
+        background-color 0.3s;
+    }
+
+    .faq-item[open] {
+      border-color: var(--dourado);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 18px;
+      color: var(--texto-claro);
+      font-weight: bold;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      flex-shrink: 0;
+      color: var(--dourado);
+      font-size: 1.3rem;
+    }
+
+    .faq-item[open] summary::after {
+      content: "−";
+    }
+
+    .faq-resposta {
+      padding: 0 18px 18px;
+      color: var(--texto-suave);
+    }
+
+    /* =========================
+       FORMULÁRIO
+    ========================= */
+
+    #contato {
+      padding: 28px 20px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      background-color: var(--superficie);
+    }
+
+    .formulario-contato {
+      max-width: 700px;
+      margin-top: 24px;
+    }
+
+    .grupo-formulario {
+      margin-bottom: 18px;
+    }
+
+    .grupo-formulario label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dourado);
+      font-size: 0.95rem;
+    }
+
+    .grupo-formulario input,
+    .grupo-formulario textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--borda-forte);
+      border-radius: 4px;
+      outline: none;
+      background-color: var(--card);
+      color: var(--texto);
+      transition:
+        border-color 0.3s,
+        box-shadow 0.3s,
+        background-color 0.3s;
+    }
+
+    .grupo-formulario textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .grupo-formulario input::placeholder,
+    .grupo-formulario textarea::placeholder {
+      color: var(--texto-suave);
+    }
+
+    .grupo-formulario input:focus,
+    .grupo-formulario textarea:focus {
+      border-color: var(--dourado);
+      box-shadow:
+        0 0 0 2px rgba(139, 100, 30, 0.18);
+    }
+
+    .grupo-formulario input:invalid:not(:placeholder-shown),
+    .grupo-formulario textarea:invalid:not(:placeholder-shown) {
+      border-color: var(--erro);
+    }
+
+    .grupo-formulario input:valid:not(:placeholder-shown),
+    .grupo-formulario textarea:valid:not(:placeholder-shown) {
+      border-color: var(--sucesso);
+    }
+
+    .acoes-formulario {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .botao-enviar,
+    .botao-limpar {
+      padding: 11px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition:
+        background-color 0.3s,
+        color 0.3s,
+        border-color 0.3s;
+    }
+
+    .botao-enviar {
+      border: 1px solid var(--dourado);
+      background-color: var(--dourado);
+      color: var(--superficie);
+      font-weight: bold;
+    }
+
+    .botao-enviar:hover {
+      background-color: var(--dourado-claro);
+    }
+
+    .botao-limpar {
+      border: 1px solid var(--borda-forte);
+      background-color: transparent;
+      color: var(--texto-suave);
+    }
+
+    .botao-limpar:hover {
+      border-color: var(--dourado);
+      color: var(--dourado);
+    }
+
+    #mensagemSucesso {
+      display: none;
+      margin-top: 18px;
+      color: var(--sucesso);
+      font-weight: bold;
+    }
+
+    #mensagemSucesso.visivel {
+      display: block;
+    }
+
+    /* =========================
+       MENSAGEM SEM RESULTADOS
+    ========================= */
+
+    #mensagemVazia {
+      display: none;
+      margin-top: 20px;
+      color: var(--texto-suave);
+      font-style: italic;
+      text-align: center;
+    }
+
+    #mensagemVazia.visivel {
+      display: block;
+      }
+        /* =========================
+       JANELA DE DETALHES
+    ========================= */
+
+    dialog {
+      width: min(90%, 500px);
+      padding: 28px;
+      border: 1px solid var(--dourado);
+      border-radius: 6px;
+      background-color: var(--fundo-modal);
+      color: var(--texto);
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    dialog::backdrop {
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    dialog h2 {
+      margin-bottom: 14px;
+      color: var(--dourado);
+      font-size: 1.6rem;
+    }
+
+    dialog p {
+      color: var(--texto-suave);
+    }
+
+    .botao-fechar {
+      margin-top: 22px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--dourado);
+      color: var(--superficie);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .botao-fechar:hover {
+      background-color: var(--dourado-claro);
+    }
+
+    /* =========================
+       RODAPÉ
+    ========================= */
+
+    footer {
+      padding: 24px 16px;
+      background-color: var(--superficie);
+      border-top: 1px solid var(--borda);
+      color: var(--texto-suave);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* =========================
+       ACESSIBILIDADE
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .revelar {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* =========================
+       CELULAR
+    ========================= */
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.65rem;
+      }
+
+      #inicio {
+        min-height: 430px;
+        padding: 70px 18px;
+      }
+
+      #inicio h2 {
+        font-size: 1.9rem;
+      }
+
+      #inicio p {
+        font-size: 1rem;
+      }
+
+      .casas-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filtros {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .botao-filtro {
+        width: 100%;
+      }
+
+      .acoes-formulario {
+        flex-direction: column;
+      }
+
+      .botao-enviar,
+      .botao-limpar {
+        width: 100%;
+      }
+
+      .faq-item summary {
+        padding: 14px;
+        font-size: 0.95rem;
+      }
+
+      .faq-resposta {
+        padding: 0 14px 14px;
+      }
+
+      dialog {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CABEÇALHO -->
+
+  <header class="revelar">
+    <h1>Crônicas de Westeros</h1>
+
+    <p>
+      Casas, juramentos e histórias que atravessam gerações.
+    </p>
+
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#casas">Casas</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+
+    <button
+      class="botao-tema"
+      id="botaoTema"
+      type="button"
+    >
+      ☀️ Tema claro
+    </button>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+
+  <main>
+
+    <!-- HERO -->
+
+    <section id="inicio" class="revelar">
+      <h2>O inverno se aproxima</h2>
+
+      <p>
+        Explore as grandes casas, seus símbolos e os juramentos
+        que moldaram o destino dos Sete Reinos.
+      </p>
+
+      <button
+        class="botao-principal"
+        id="botaoCasas"
+        type="button"
+      >
+        Conhecer as casas
+      </button>
+    </section>
+
+    <!-- CASAS -->
+
+    <section id="casas">
+      <h2 class="revelar">As grandes casas</h2>
+
+      <p class="revelar">
+        Pesquise pelo nome ou escolha uma região para filtrar
+        as casas do reino.
+      </p>
+
+      <div class="campo-busca revelar">
+        <label for="campoBusca">
+          Pesquisar uma casa
+        </label>
+
+        <input
+          id="campoBusca"
+          type="search"
+          placeholder="Digite o nome de uma casa..."
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="filtros revelar">
+        <button
+          class="botao-filtro ativo"
+          type="button"
+          data-filtro="todas"
+        >
+          Todas
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="norte"
+        >
+          Norte
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="oeste"
+        >
+          Oeste
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="leste"
+        >
+          Leste
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="tempestade"
+        >
+          Tempestade
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="ilhas"
+        >
+          Ilhas
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="vale"
+        >
+          Vale
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="rios"
+        >
+          Rios
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="campina"
+        >
+          Campina
+        </button>
+
+        <button
+          class="botao-filtro"
+          type="button"
+          data-filtro="dorne"
+        >
+          Dorne
+        </button>
+      </div>
+
+      <div class="casas-grid">
+
+        <article
+          class="casa-card revelar"
+          data-regiao="norte"
+        >
+          <span class="simbolo-casa">🐺</span>
+
+          <h3>Casa Stark</h3>
+
+          <span class="regiao">Norte</span>
+
+          <p class="lema">
+            “O inverno está chegando.”
+          </p>
+
+          <p>
+            Ligada ao Norte e a Winterfell, a Casa Stark
+            representa resistência, honra e lealdade.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="stark"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="oeste"
+        >
+          <span class="simbolo-casa">🦁</span>
+
+          <h3>Casa Lannister</h3>
+
+          <span class="regiao">Oeste</span>
+
+          <p class="lema">
+            “Um Lannister sempre paga suas dívidas.”
+          </p>
+
+          <p>
+            Ligada às terras do oeste, é conhecida por sua
+            riqueza, influência e ambição política.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="lannister"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="leste"
+        >
+          <span class="simbolo-casa">🐉</span>
+
+          <h3>Casa Targaryen</h3>
+
+          <span class="regiao">Leste</span>
+
+          <p class="lema">
+            “Fogo e sangue.”
+          </p>
+
+          <p>
+            Uma antiga linhagem associada a dragões, fogo
+            e reivindicações ao Trono de Ferro.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="targaryen"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="tempestade"
+        >
+          <span class="simbolo-casa">🦌</span>
+
+          <h3>Casa Baratheon</h3>
+
+          <span class="regiao">Tempestade</span>
+
+          <p class="lema">
+            “Nossa é a fúria.”
+          </p>
+
+          <p>
+            Uma casa marcada por força, tempestades e
+            disputas pelo poder dos Sete Reinos.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="baratheon"
+          >
+            Ver detalhes
+          </button>
+        </article>
+                <article
+          class="casa-card revelar"
+          data-regiao="ilhas"
+        >
+          <span class="simbolo-casa">🐙</span>
+
+          <h3>Casa Greyjoy</h3>
+
+          <span class="regiao">Ilhas de Ferro</span>
+
+          <p class="lema">
+            “Nós não semeamos.”
+          </p>
+
+          <p>
+            Ligada às Ilhas de Ferro, a casa representa
+            independência, navegação e espírito guerreiro.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="greyjoy"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="vale"
+        >
+          <span class="simbolo-casa">🦅</span>
+
+          <h3>Casa Arryn</h3>
+
+          <span class="regiao">Vale</span>
+
+          <p class="lema">
+            “Tão alto quanto a honra.”
+          </p>
+
+          <p>
+            Senhora do Vale, a Casa Arryn é ligada às montanhas,
+            à honra e ao Ninho da Águia.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="arryn"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="rios"
+        >
+          <span class="simbolo-casa">🐟</span>
+
+          <h3>Casa Tully</h3>
+
+          <span class="regiao">Terras Fluviais</span>
+
+          <p class="lema">
+            “Família, dever, honra.”
+          </p>
+
+          <p>
+            Ligada às Terras Fluviais, a Casa Tully valoriza
+            família, responsabilidade e lealdade.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="tully"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="campina"
+        >
+          <span class="simbolo-casa">🌹</span>
+
+          <h3>Casa Tyrell</h3>
+
+          <span class="regiao">Campina</span>
+
+          <p class="lema">
+            “Crescendo fortes.”
+          </p>
+
+          <p>
+            Associada à Campina, à prosperidade,
+            à diplomacia e às grandes colheitas.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="tyrell"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+        <article
+          class="casa-card revelar"
+          data-regiao="dorne"
+        >
+          <span class="simbolo-casa">☀️</span>
+
+          <h3>Casa Martell</h3>
+
+          <span class="regiao">Dorne</span>
+
+          <p class="lema">
+            “Insubmissos, indomáveis, inquebráveis.”
+          </p>
+
+          <p>
+            Ligada a Dorne, a Casa Martell representa
+            independência, resistência e identidade própria.
+          </p>
+
+          <button
+            class="botao-detalhes"
+            type="button"
+            data-casa="martell"
+          >
+            Ver detalhes
+          </button>
+        </article>
+
+      </div>
+
+      <p id="mensagemVazia">
+        Nenhuma casa foi encontrada com esses critérios.
+      </p>
+    </section>
+
+    <!-- FAQ -->
+
+    <section id="faq" class="revelar">
+      <h2>Perguntas frequentes</h2>
+
+      <p>
+        Algumas informações sobre esta página e suas funções.
+      </p>
+
+      <div class="faq-lista">
+
+        <details class="faq-item">
+          <summary>
+            Este site é oficial de Game of Thrones?
+          </summary>
+
+          <p class="faq-resposta">
+            Não. Este é um projeto de estudo com identidade
+            visual própria, inspirado em fantasia medieval.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            A página funciona no celular?
+          </summary>
+
+          <p class="faq-resposta">
+            Sim. O layout foi criado para se adaptar a telas
+            grandes e pequenas.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            A pesquisa combina com os filtros?
+          </summary>
+
+          <p class="faq-resposta">
+            Sim. Você pode pesquisar uma casa e escolher uma
+            região ao mesmo tempo.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            O formulário envia e-mails de verdade?
+          </summary>
+
+          <p class="faq-resposta">
+            Ainda não. O formulário é uma demonstração local.
+            Para enviar mensagens reais, será necessário conectar
+            um serviço de formulários.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            O tema escolhido fica salvo?
+          </summary>
+
+          <p class="faq-resposta">
+            Sim. A escolha entre tema claro e escuro é salva
+            no navegador deste dispositivo.
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+
+    <section id="contato" class="revelar">
+      <h2>Envie uma mensagem</h2>
+
+      <p>
+        Deixe uma sugestão para as próximas crônicas do projeto.
+      </p>
+
+      <form
+        class="formulario-contato"
+        id="formularioContato"
+      >
+        <div class="grupo-formulario">
+          <label for="nome">
+            Nome
+          </label>
+
+          <input
+            id="nome"
+            name="nome"
+            type="text"
+            placeholder="Digite seu nome"
+            minlength="3"
+            maxlength="60"
+            required
+          >
+        </div>
+
+        <div class="grupo-formulario">
+          <label for="email">
+            E-mail
+          </label>
+
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="exemplo@email.com"
+            required
+          >
+        </div>
+
+        <div class="grupo-formulario">
+          <label for="mensagem">
+            Mensagem
+          </label>
+
+          <textarea
+            id="mensagem"
+            name="mensagem"
+            placeholder="Escreva sua mensagem..."
+            minlength="10"
+            maxlength="500"
+            required
+          ></textarea>
+        </div>
+
+        <div class="acoes-formulario">
+          <button
+            class="botao-enviar"
+            type="submit"
+          >
+            Enviar mensagem
+          </button>
+
+          <button
+            class="botao-limpar"
+            id="botaoLimpar"
+            type="reset"
+          >
+            Limpar
+          </button>
+        </div>
+
+        <p id="mensagemSucesso">
+          Mensagem preparada com sucesso!
+        </p>
+      </form>
+    </section>
+
+    <!-- SOBRE -->
+
+    <section id="sobre" class="revelar">
+      <h2>Sobre este projeto</h2>
+
+      <p>
+        Esta página é um projeto de estudo inspirado no universo
+        de fantasia medieval de Westeros. O objetivo é praticar
+        HTML, CSS, responsividade e JavaScript criando uma
+        experiência visual original.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- JANELA DE DETALHES -->
+
+  <dialog id="janelaDetalhes">
+    <h2 id="tituloDetalhes"></h2>
+
+    <p id="textoDetalhes"></p>
+
+    <button
+      class="botao-fechar"
+      id="botaoFechar"
+      type="button"
+    >
+      Fechar
+    </button>
+  </dialog>
+
+  <!-- RODAPÉ -->
+
+  <footer class="revelar">
+    <p>
+      Projeto de estudo criado com HTML, CSS e JavaScript.
+    </p>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+    const botaoCasas =
+      document.getElementById("botaoCasas");
+
+    const secaoCasas =
+      document.getElementById("casas");
+
+    const botaoTema =
+      document.getElementById("botaoTema");
+
+    const campoBusca =
+      document.getElementById("campoBusca");
+
+    const botoesFiltro =
+      document.querySelectorAll(".botao-filtro");
+
+    const cardsCasa =
+      document.querySelectorAll(".casa-card");
+
+    const mensagemVazia =
+      document.getElementById("mensagemVazia");
+
+    const botoesDetalhes =
+      document.querySelectorAll(".botao-detalhes");
+
+    const janelaDetalhes =
+      document.getElementById("janelaDetalhes");
+
+    const tituloDetalhes =
+      document.getElementById("tituloDetalhes");
+
+    const textoDetalhes =
+      document.getElementById("textoDetalhes");
+
+    const botaoFechar =
+      document.getElementById("botaoFechar");
+
+    const formularioContato =
+      document.getElementById("formularioContato");
+
+    const botaoLimpar =
+      document.getElementById("botaoLimpar");
+
+    const mensagemSucesso =
+      document.getElementById("mensagemSucesso");
+
+    const elementosRevelar =
+      document.querySelectorAll(".revelar");
+
+    let filtroAtual = "todas";
+
+    const detalhesCasas = {
+      stark: {
+        titulo: "Casa Stark",
+        texto:
+          "Os Stark são associados ao Norte e a Winterfell. " +
+          "Sua identidade está ligada à honra, à resistência " +
+          "e à lealdade diante das dificuldades."
+      },
+
+      lannister: {
+        titulo: "Casa Lannister",
+        texto:
+          "Os Lannister são conhecidos por sua riqueza, " +
+          "influência e habilidade política. Seu poder nasce " +
+          "tanto dos recursos quanto das alianças."
+      },
+
+      targaryen: {
+        titulo: "Casa Targaryen",
+        texto:
+          "Os Targaryen carregam uma antiga tradição ligada " +
+          "aos dragões e ao fogo. Sua história envolve poder, " +
+          "conquista e disputas pelo trono."
+      },
+
+      baratheon: {
+        titulo: "Casa Baratheon",
+        texto:
+          "Os Baratheon são associados à força, à tempestade " +
+          "e ao espírito combativo. Sua trajetória é marcada " +
+          "por conflitos de poder e liderança."
+      },
+
+      greyjoy: {
+        titulo: "Casa Greyjoy",
+        texto:
+          "Os Greyjoy são ligados às Ilhas de Ferro e ao mar. " +
+          "Sua cultura valoriza independência, coragem e uma " +
+          "forte tradição naval."
+      },
+
+      arryn: {
+        titulo: "Casa Arryn",
+        texto:
+          "Os Arryn governam o Vale e possuem uma longa tradição " +
+          "associada à honra, às montanhas e à defesa de suas terras."
+      },
+
+      tully: {
+        titulo: "Casa Tully",
+        texto:
+          "Os Tully são ligados às Terras Fluviais. A família " +
+          "valoriza os laços familiares, o dever e a honra."
+      },
+
+      tyrell: {
+        titulo: "Casa Tyrell",
+        texto:
+          "Os Tyrell governam a Campina e são associados à riqueza, " +
+          "à agricultura, à diplomacia e às alianças estratégicas."
+      },
+
+      martell: {
+        titulo: "Casa Martell",
+        texto:
+          "Os Martell governam Dorne e são conhecidos por sua " +
+          "independência, resistência e costumes próprios."
+      }
+    };
+
+    function aplicarTema(tema) {
+      document.documentElement.dataset.tema = tema;
+
+      if (tema === "claro") {
+        botaoTema.textContent = "🌙 Tema escuro";
+      } else {
+        botaoTema.textContent = "☀️ Tema claro";
+      }
+
+      localStorage.setItem("temaWesteros", tema);
+    }
+
+    const temaSalvo =
+      localStorage.getItem("temaWesteros");
+
+    aplicarTema(temaSalvo || "escuro");
+
+    botaoTema.addEventListener("click", function() {
+      const temaAtual =
+        document.documentElement.dataset.tema;
+
+      const novoTema =
+        temaAtual === "claro" ? "escuro" : "claro";
+
+      aplicarTema(novoTema);
+    });
+
+    botaoCasas.addEventListener("click", function() {
+      secaoCasas.scrollIntoView({
+        behavior: "smooth"
+      });
+    });
+
+    campoBusca.addEventListener("input", function() {
+      atualizarCasas();
+    });
+
+    botoesFiltro.forEach(function(botao) {
+      botao.addEventListener("click", function() {
+        filtroAtual = botao.dataset.filtro;
+
+        botoesFiltro.forEach(function(outroBotao) {
+          outroBotao.classList.remove("ativo");
+        });
+
+        botao.classList.add("ativo");
+
+        atualizarCasas();
+      });
+    });
+
+    function atualizarCasas() {
+      const textoBusca =
+        campoBusca.value.trim().toLowerCase();
+
+      let quantidadeVisivel = 0;
+
+      cardsCasa.forEach(function(card) {
+        const nomeCasa =
+          card.querySelector("h3")
+            .textContent
+            .toLowerCase();
+
+        const regiaoCasa =
+          card.dataset.regiao;
+
+        const combinaComBusca =
+          nomeCasa.includes(textoBusca);
+
+        const combinaComFiltro =
+          filtroAtual === "todas" ||
+          regiaoCasa === filtroAtual;
+
+        const deveMostrar =
+          combinaComBusca && combinaComFiltro;
+
+        if (deveMostrar) {
+          card.classList.remove("oculta");
+          quantidadeVisivel++;
+        } else {
+          card.classList.add("oculta");
+        }
+      });
+
+      if (quantidadeVisivel === 0) {
+        mensagemVazia.classList.add("visivel");
+      } else {
+        mensagemVazia.classList.remove("visivel");
+      }
+    }
+
+    const observador =
+      new IntersectionObserver(
+        function(entradas) {
+          entradas.forEach(function(entrada) {
+            if (entrada.isIntersecting) {
+              entrada.target.classList.add("apareceu");
+              observador.unobserve(entrada.target);
+            }
+          });
+        },
+        {
+          threshold: 0.15
+        }
+      );
+
+    elementosRevelar.forEach(function(elemento) {
+      observador.observe(elemento);
+    });
+
+    botoesDetalhes.forEach(function(botao) {
+      botao.addEventListener("click", function() {
+        const nomeCasa = botao.dataset.casa;
+        const detalhes = detalhesCasas[nomeCasa];
+
+        tituloDetalhes.textContent =
+          detalhes.titulo;
+
+        textoDetalhes.textContent =
+          detalhes.texto;
+
+        janelaDetalhes.showModal();
+      });
+    });
+
+    botaoFechar.addEventListener("click", function() {
+      janelaDetalhes.close();
+    });
+
+    formularioContato.addEventListener(
+      "submit",
+      function(evento) {
+        evento.preventDefault();
+
+        if (!formularioContato.reportValidity()) {
+          return;
+        }
+
+        mensagemSucesso.classList.add("visivel");
+        formularioContato.reset();
+      }
+    );
+
+    botaoLimpar.addEventListener("click", function() {
+      mensagemSucesso.classList.remove("visivel");
+    });
+  </script>
+
+</body>
+</html>
